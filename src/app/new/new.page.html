@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Listing</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-parent">
+    <div class="content-area">
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="Enter location..."></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Upload images folder</ion-label>
+          <ion-input type="file"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Enter a nightly price..."></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Enter a description..."></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" (click)="publish()">Finish</ion-button>
+    </div>
+  </div>
+</ion-content>

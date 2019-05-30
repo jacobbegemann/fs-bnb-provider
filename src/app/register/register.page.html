@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-parent">
+    <div class="login-area">
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="First Name..." id="fn"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Last Name..." id="ln"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Email..." id="eml" type="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Phone..." id="tel" type="tel"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Pick a username..." id="usn"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Pick a password..." id="pw"></ion-input>
+        </ion-item>
+        <ion-item id="dob">
+          <ion-label>Select your date of birth</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="DD MMMM YYYY" id="bday"></ion-datetime>
+        </ion-item>
+        <ion-button expand="block" (click)="doRegistration()">Finish</ion-button>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
