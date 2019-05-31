@@ -12,14 +12,14 @@
       <h1>Your Listings</h1>
       <ion-item-divider></ion-item-divider>
       <div class="listings-area">
-        <ion-card (click)="goToDetails()">
+        <ion-card (click)="goToDetails()" *ngFor="let item of listings">
           <ion-card-header>
             <ion-card-subtitle>Hosted by you</ion-card-subtitle>
-            <img src="assets/2L6A5804-HDR-Mail-altrd_1_-_small.webp">
-            <ion-card-title>Norwood, Massachusetts</ion-card-title>
+            <img src="{{item.getCoverPhoto()}}">
+            <ion-card-title>{{item.getLocation()}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            $50/night A nice home in suburban Mass...
+            {{item.price}} {{item.name}}
           </ion-card-content>
         </ion-card>
       </div>

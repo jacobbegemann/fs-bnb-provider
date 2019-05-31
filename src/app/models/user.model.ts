@@ -10,6 +10,7 @@ export class User {
   private bookings: Array<Trip>;
   private saved: Array<Rental>;
   private messages: Array<Message>;
+  private listings: Array<Rental>;
 
   constructor(private username: string, 
     private password: string,
@@ -26,6 +27,7 @@ export class User {
       this.bookings = new Array();
       this.saved = new Array();
       this.messages = new Array();
+      this.listings = new Array();
     }
 
     addReview(review: UserReview) {
@@ -34,6 +36,10 @@ export class User {
 
     addBooking(trip: Trip) {
       this.bookings.push(trip);
+    }
+
+    addListing(rental: Rental) {
+      this.listings.push(rental);
     }
 
     saveHome(home: Rental) {
@@ -69,6 +75,8 @@ export class User {
     getReviews() { return this.reviews; }
 
     getBookings() { return this.bookings; }
+
+    getListings() { return this.listings; }
 
     getSaved() { return this.saved; }
 

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { DataService } from '../services/data.service';
+import { Rental } from '../models/rental.model';
 
 @Component({
   selector: 'app-tab1',
@@ -8,7 +10,12 @@ import { NavController } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  constructor(private navctrl: NavController) {}
+  public listings: Array<Rental>;
+
+  constructor(private navctrl: NavController,
+    private dataService: DataService) {
+      this.listings = dataService.getData().peekUser().getListings();
+    }
 
   newListing() {
     this.navctrl.navigateForward('new');

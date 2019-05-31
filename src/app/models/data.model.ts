@@ -54,39 +54,15 @@ export class Data {
       "Doe", "01/01/1900", "1234567890",
       "assets/gettyimages-985138634-612x612.jpg",
       2010, "New York");
-    const janeSmith = new User(
-      "example", "password", "example@email.com", "Jane",
-      "Smith", "01/01/1900", "1234567890",
-      "assets/gettyimages-985138634-612x612.jpg",
-      2010, "New York"
-    );
-    const bobDylan = new User(
-      "example", "password", "example@email.com", "Bob",
-      "Dylan", "01/01/1900", "1234567890",
-      "assets/gettyimages-985138634-612x612.jpg",
-      2010, "New York"
-    );
     this.users.push(johnDoe);
-    const sampleReview1 = new UserReview(bobDylan, johnDoe,
-       "This host was excellent, very clean and very nice. Definitely recommend!", 5);
-    const sampleReview2 = new UserReview(janeSmith, johnDoe,
-       "This host pretty good, clean and mostly left you alone. Would recommend!", 4);
-    johnDoe.addReview(sampleReview1);
-    johnDoe.addReview(sampleReview2);
-    const save1 = new Rental(
+    const rental1 = new Rental(
       "A nice home in suburban MA...",
       "Norwood, Massachusetts",
       ["assets/2L6A5804-HDR-Mail-altrd_1_-_small.webp"],
-      janeSmith,
+      johnDoe,
       "$50/night"
     );
-    this.addRental(save1);
-    johnDoe.saveHome(save1);
-    const message1 = new Message(
-      janeSmith, johnDoe, "Hello there! Welcome to fs-bnb.", "10:00"
-    );
-    johnDoe.recieveMessage(message1);
-    johnDoe.addBooking(new Trip("March 5-10", save1));
+    johnDoe.addListing(rental1);
   }
 
   getRentals() { return this.rentals; }
