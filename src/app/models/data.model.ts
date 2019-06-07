@@ -90,6 +90,7 @@ export class Data {
     return new Promise((resolve) => {
       this.client.post(`http://localhost:3000/users`, user)
         .subscribe((response: AuthenticationResponse) => {
+          console.log("setting localstorage");
           localStorage.setItem("id", response.id.toString());
           localStorage.setItem("token", response.token);
           resolve(true);
@@ -160,6 +161,7 @@ export class Data {
         { email: email, password: password },
         options
       ).subscribe((response: AuthenticationResponse) => {
+         console.log("setting localstorage");
         localStorage.setItem("id", response.id.toString());
         localStorage.setItem("token", response.token);
         resolve(true);

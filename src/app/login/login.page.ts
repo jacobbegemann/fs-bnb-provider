@@ -14,16 +14,17 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  doLogin() {
-    const username = (<HTMLInputElement>document.getElementById('username-field')).value;
+  async doLogin() {
+    const email = (<HTMLInputElement>document.getElementById('email-field')).value;
     const password = (<HTMLInputElement>document.getElementById('password-field')).value;
-    const usernameIsEmpty: boolean = username.length === 0;
+    const emailIsEmpty: boolean = email.length === 0;
     const passWordIsEmpty: boolean = password.length === 0;
-    if (usernameIsEmpty || passWordIsEmpty || !this.dataService.getData().validate(username, password)) {
+    const valid: boolean = await this.dataService.getData().validate(email, password);
+    if (emailIsEmpty || passWordIsEmpty || !valid) {
       this.navctrl.navigateForward('');
       document.getElementById('warning').setAttribute("style", "visibility: visible;");
     } else {
-      this.navctrl.navigateForward('/tabs/tab1');
+      this.navctrl.navigateForward('/tabs/tab4');
     }
   }
 

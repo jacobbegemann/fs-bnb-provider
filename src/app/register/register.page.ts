@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit {
     newUser.photoSource = '';
     const success: boolean = await this.data.getData().addUser(newUser);
     if (success) {
-      this.navctrl.navigateForward('/tabs/tab4');
+      this.navctrl.navigateForward('tabs/tab1');
     }
   }
 
