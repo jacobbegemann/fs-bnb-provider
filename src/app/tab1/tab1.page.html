@@ -11,16 +11,18 @@
     <div class="content-area">
       <h1>Your Listings</h1>
       <ion-item-divider></ion-item-divider>
-      <div class="listings-area">
-        <ion-card (click)="goToDetails()" *ngFor="let item of listings">
-          <ion-card-header>
-            <ion-card-subtitle>Hosted by you</ion-card-subtitle>
-            <img src="{{item.getCoverPhoto()}}">
-            <ion-card-title>{{item.getLocation()}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            {{item.price}} {{item.name}}
-          </ion-card-content>
+      <div class="listings-area" *ngIf="listings">
+        <ion-card *ngFor="let item of listings">
+          <div (click)="goToDetails(item)">
+            <ion-card-header>
+              <ion-card-subtitle>Hosted by you</ion-card-subtitle>
+              <img src="{{item.getCoverPhoto()}}">
+              <ion-card-title>{{item.getLocation()}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              ${{item.price}}/night. {{item.name}}
+            </ion-card-content>
+          </div>
         </ion-card>
       </div>
       <ion-button expand="block" id="new-listing" (click)="newListing()">New Listing</ion-button>

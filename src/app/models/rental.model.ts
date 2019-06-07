@@ -7,8 +7,12 @@ export class Rental {
   constructor(private name: string, 
     private location: string,
     private pictureSources: Array<string>,
-    private host: User,
+    private hostID: number,
     private price: string) {}
+
+    addPictureSources(sources: Array<string>) {
+      this.pictureSources = sources;
+    }
 
     getLocation() { return this.location; }
 
@@ -16,11 +20,10 @@ export class Rental {
 
     getCoverPhoto() { return this.pictureSources[0]; }
 
-    getHost() { return this.host; }
+    getHost() { return this.hostID; }
 
     getPrice() { return this.price; }
 
     getName() { return this.name; }
 
-    getEmail() { return this.host.getEmail(); }
 }

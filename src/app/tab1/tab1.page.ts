@@ -14,15 +14,19 @@ export class Tab1Page {
 
   constructor(private navctrl: NavController,
     private dataService: DataService) {
-      this.listings = dataService.getData().peekUser().getListings();
-    }
+  }
+
+  async ngOnInit() {
+    const activeUser = await this.dataService.getData().activeUser();
+    this.listings = await this.dataService.getData().getListings(activeUser);
+  }
 
   newListing() {
     this.navctrl.navigateForward('new');
   }
 
-  goToDetails() {
-    this.navctrl.navigateForward('rental');
+  goToDetails(rental: Rental) {
+    this.navctrl.navigateForward(`rental`, {queryParams: {rentalID: rental.id}});
   }
 
 }

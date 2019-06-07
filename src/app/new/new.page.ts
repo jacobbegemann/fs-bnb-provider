@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ServerRentalObject } from '../models/serverRentalObject.model';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-new',
@@ -10,8 +12,10 @@ export class NewPage implements OnInit {
 
   public counter: number = 0;
   public uploadArray = [this.counter];
+  public publishDone: boolean = false;
 
-  constructor(private navctrl: NavController) {
+  constructor(private navctrl: NavController,
+    private dataService: DataService) {
     this.counter++;
   }
 
@@ -30,27 +34,45 @@ export class NewPage implements OnInit {
   }
 
   async publish() {
-    // const location = (<HTMLInputElement>document.getElementById('lcn')).value;
-    // const pictures = new Array<string>();
-    // this.uploadArray.forEach(async (value) => {
-    //   const file: File = (<HTMLInputElement>document.getElementById(value.toString())).files[0];
-    //   const data = await this.readFile(file);
-    //   const fs = require('fs');
-    //   fs.writeFile(`${location}-${value}`, data, function (err: any) {
-    //     if (err) throw err;
-    //   });
-    //   pictures.push();
-    // });
+    const newRental = new ServerRentalObject();
+    newRental.location = (<HTMLInputElement>document.getElementById('lcn')).value;
+    newRental.name = (<HTMLInputElement>document.getElementById('dsc')).value;
+    newRental.price = parseFloat((<HTMLInputElement>document.getElementById('prc')).value);
+    newRental.pictureSources = '';
+    for (let i = 0; i < this.uploadArray.length; i++) {
+      let value = this.uploadArray[i];
+      const file: File = (<HTMLInputElement>document.getElementById(`${value}`)).files[0];
+      if (file) {
+        const dataUri: string = await this.getImageData(file);
+        if (dataUri) {
+          newRental.pictureSources += `${dataUri}&`;
+        }
+      }
+    }
+    newRental.hostID = parseInt(localStorage.getItem("id"));
+    const success: boolean = await this.dataService.getData().addRental(newRental);
+    if (success) {
+      this.publishDone = true;
+    }
+  }
+
+  navHome() {
     this.navctrl.navigateForward('tabs/tab1');
   }
 
-  readFile(file: File) {
+  getImageData(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
+      reader.onload = function (event: any) {
+        const dataUri = event.target.result;
+        resolve(dataUri);
+      };
+      reader.onerror = function (event: any) {
+        console.error("File could not be read! Code " + event.target.error.code);
+        reject(event.target.error.code);
+      };
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
+    })
   }
 
 }

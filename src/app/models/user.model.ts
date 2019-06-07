@@ -5,83 +5,84 @@ import { Trip } from './trip.model';
 
 export class User {
 
+  private id: number;
   private numBookings: number;
   private reviews: Array<UserReview>;
   private bookings: Array<Trip>;
   private saved: Array<Rental>;
   private messages: Array<Message>;
-  private listings: Array<Rental>;
+  private photoSource: string;
+  private yearJoined: number;
 
-  constructor(private username: string, 
+  constructor(private email: string,
     private password: string,
-    private email: string,
     private firstName: string,
     private lastName: string,
     private birthday: string,
     private phone: string,
-    private photoSource: string,
-    private yearJoined: number,
     private location: string) {
-      this.numBookings = 0;
-      this.reviews = new Array();
-      this.bookings = new Array();
-      this.saved = new Array();
-      this.messages = new Array();
-      this.listings = new Array();
-    }
+    this.numBookings = 0;
+    this.reviews = new Array();
+    this.bookings = new Array();
+    this.saved = new Array();
+    this.messages = new Array();
+    this.photoSource = "assets/631929649c.svg";
+  }
 
-    addReview(review: UserReview) {
-      this.reviews.push(review);
-    }
+  addReview(review: UserReview) {
+    this.reviews.push(review);
+  }
 
-    addBooking(trip: Trip) {
-      this.bookings.push(trip);
-    }
+  addBooking(trip: Trip) {
+    this.bookings.push(trip);
+  }
 
-    addListing(rental: Rental) {
-      this.listings.push(rental);
-    }
+  saveHome(home: Rental) {
+    this.saved.push(home);
+  }
 
-    saveHome(home: Rental) {
-      this.saved.push(home);
-    }
+  recieveMessage(message: Message) {
+    this.messages.push(message);
+  }
 
-    recieveMessage(message: Message) {
-      this.messages.push(message);
-    }
+  setYearJoined(year: number) {
+    this.yearJoined = year;
+  }
 
-    setPhoto(url: string) { this.photoSource = url; }
+  setPhoto(url: string) { this.photoSource = url; }
 
-    getUsername() { return this.username; }
+  setNumBookings(num: number) { this.numBookings = num; }
 
-    getPassword() { return this.password; }
-    
-    getFirstName() { return this.firstName; }
+  setId(num: number) { this.id = num; }
 
-    getLastName() { return this.lastName; }
+  getPassword() { return this.password; }
 
-    getBirthday() { return this.birthday; }
+  getFirstName() { return this.firstName; }
 
-    getPhone() { return this.phone; }
+  getLastName() { return this.lastName; }
 
-    getPhotoSource() { return this.photoSource; }
+  getBirthday() { return this.birthday; }
 
-    getYearJoined() { return this.yearJoined; }
+  getPhone() { return this.phone; }
 
-    getNumBookings() { return this.numBookings; }
+  getYearJoined() { return this.yearJoined; }
 
-    getLocation() { return this.location; }
+  getPhotoSource() { return this.photoSource; }
 
-    getReviews() { return this.reviews; }
+  getNumBookings() { return this.numBookings; }
 
-    getBookings() { return this.bookings; }
+  getLocation() { return this.location; }
 
-    getListings() { return this.listings; }
+  getReviews() { return this.reviews; }
 
-    getSaved() { return this.saved; }
+  getBookings() { return this.bookings; }
 
-    getMessages() { return this.messages; }
+  getSaved() { return this.saved; }
 
-    getEmail() { return this.email; }
+  getMessages() { return this.messages; }
+
+  getEmail() { return this.email; }
+
+  getId() { return this.id; }
 
 }
