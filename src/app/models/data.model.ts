@@ -200,7 +200,7 @@ export class Data {
   }
 
   patchTrip(trip: Trip) {
-    this.client.patch(`http://localhost:3000/trips/`, trip)
+    this.client.patch(`http://localhost:3000/trips/${trip.id}`, trip)
       .subscribe();
   }
 

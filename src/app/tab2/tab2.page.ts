@@ -18,7 +18,6 @@ export class Tab2Page {
   async ngOnInit() {
     this.bookings = await this.dataService.getData()
       .getBookingRequests(parseInt(localStorage.getItem('id')));
-    console.log(this.bookings);
     this.bookings.forEach(async (value: any) => {
       const user = await this.dataService.getData().getUserByIdUnproteted(value.userID);
       value.name = `${user.getFirstName()} ${user.getLastName()}`;
