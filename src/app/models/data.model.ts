@@ -10,8 +10,6 @@ import { ServerRentalObject } from './serverRentalObject.model';
 
 export class Data {
 
-  private rentalID: number = 0;
-
   constructor(private client: HttpClient) { }
 
   activeUser(): Promise<User> {
@@ -135,7 +133,7 @@ export class Data {
     });
     const options = {
       headers: httpHeaders,
-    }
+    };
     return new Promise((resolve) => {
       this.client.post(`http://localhost:3000/properties`, rental, options)
         .subscribe((response) => {
@@ -145,6 +143,19 @@ export class Data {
             console.log(err);
             resolve(false);
           });
+    });
+  }
+
+  updateRental(rental: ServerRentalObject): Promise<boolean> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {
+      headers: httpHeaders,
+    };
+    return new Promise((resolve) => {
+      this.client.patch(`http://localhost:3000/properties/${rental.id}`, rental, options)
+        .subscribe((response) => resolve(true), (err: HttpErrorResponse) => resolve(false));
     });
   }
 

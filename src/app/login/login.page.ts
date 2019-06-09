@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
       this.navctrl.navigateForward('');
       document.getElementById('warning').setAttribute("style", "visibility: visible;");
     } else {
-      this.navctrl.navigateForward('/tabs/tab4');
+      this.navctrl.navigateForward('/tabs/tab1');
     }
   }
 

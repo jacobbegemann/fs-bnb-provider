@@ -16,7 +16,7 @@
           <div (click)="goToDetails(item)">
             <ion-card-header>
               <ion-card-subtitle>Hosted by you</ion-card-subtitle>
-              <img src="{{item.getCoverPhoto()}}">
+              <img [src]="item.getCoverPhoto() | safe">
               <ion-card-title>{{item.getLocation()}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>

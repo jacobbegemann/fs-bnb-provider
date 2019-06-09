@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
 import { Rental } from '../models/rental.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tab1',

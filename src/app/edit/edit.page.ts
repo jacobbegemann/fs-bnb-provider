@@ -2,20 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ServerRentalObject } from '../models/serverRentalObject.model';
 import { DataService } from '../services/data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-new',
-  templateUrl: './new.page.html',
-  styleUrls: ['./new.page.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.page.html',
+  styleUrls: ['./edit.page.scss'],
 })
-export class NewPage implements OnInit {
+export class EditPage implements OnInit {
 
   public counter: number = 0;
   public uploadArray = [this.counter];
   public publishDone: boolean = false;
+  public found: boolean = true;
+  public id: number;
+  private pictureSources: Array<string>;
+  private pictureIndex = 0;
 
   constructor(private navctrl: NavController,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private activatedRoute: ActivatedRoute) {
     this.counter++;
   }
 
@@ -31,9 +37,15 @@ export class NewPage implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe(
+      (data: any) => {
+        this.find(data.params.rentalID);
+        this.id = data.params.rentalID;
+      }
+    );
   }
 
-  async publish() {
+  async publish(id: number) {
     const newRental = new ServerRentalObject();
     newRental.location = (<HTMLInputElement>document.getElementById('lcn')).value;
     newRental.name = (<HTMLInputElement>document.getElementById('dsc')).value;
@@ -50,7 +62,8 @@ export class NewPage implements OnInit {
       }
     }
     newRental.hostID = parseInt(localStorage.getItem("id"));
-    const success: boolean = await this.dataService.getData().addRental(newRental);
+    newRental.id = id;
+    const success: boolean = await this.dataService.getData().updateRental(newRental);
     if (success) {
       this.publishDone = true;
     }
@@ -75,4 +88,39 @@ export class NewPage implements OnInit {
     })
   }
 
+  async find(rentalID: number) {
+    this.dataService.getData().getRental(rentalID).then((value) => {
+      this.found = true;
+      (<HTMLInputElement>document.getElementById('lcn')).setAttribute("value", value.getLocation());
+      this.pictureSources = value.getPictureSources();
+      this.addPhoto(this.pictureSources[this.pictureIndex]);
+      this.pictureIndex++;
+      (<HTMLInputElement>document.getElementById('dsc')).setAttribute("value", value.getName());
+      (<HTMLInputElement>document.getElementById('prc')).setAttribute("value", value.getPrice());
+    }, (onreject) => {
+      this.found = false;
+    });
+  }
+
+  addPhoto(src: string) {
+    if (src) {
+      const dataTransfer = new DataTransfer();
+      console.log(src);
+      dataTransfer.items.add(new File([src], `Upload ${(this.pictureIndex + 1).toString()}`));
+      const list = dataTransfer.files;
+      (<HTMLInputElement>document.getElementById(
+        this.uploadArray[this.uploadArray.length - 1].toString())
+      ).files = list;
+      this.handleFiles();
+    }
+  }
+
+  addNext() {
+    if (this.pictureIndex < this.pictureSources.length
+      && this.pictureIndex != 0) {
+      this.addPhoto(this.pictureSources[this.pictureIndex]);
+    }
+  }
+
 }
+

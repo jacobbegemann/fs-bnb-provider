@@ -12,7 +12,7 @@
         <ion-item-divider></ion-item-divider>
         <div class="description-area">
           <h3>{{location}}</h3>
-          <img [src]="this.sanitizer.bypassSecurityTrustUrl(coverPhoto)">
+          <img [src]="coverPhoto | safe">
           <h5>Host</h5>
           <p>{{hostName}}</p>
           <h5>Accomodation</h5>
@@ -20,6 +20,7 @@
           <h5>Contact</h5>
           <p><a>{{email}}</a></p>
         </div>
+        <ion-button expand="block" *ngIf="owner" (click)="goToEdit()">Edit</ion-button>
       </div>
       <div *ngIf="!found">
           <h3>Error rental not found</h3>
