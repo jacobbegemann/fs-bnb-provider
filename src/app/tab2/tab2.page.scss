@@ -1,1 +1,39 @@
+.content-area {
+  width: 50%;
+  display: inline-block;
+}
 
+.content-parent {
+  margin-top: 2%;
+  text-align: center;
+}
+
+.info-section {
+  text-align: left;
+}
+
+.block {
+  display: block;
+}
+
+.about-line {
+  display: block;
+  margin: 1% 0%;
+}
+
+.listings-area {
+  height: 25em;
+  overflow-y: scroll;
+}
+
+ion-card {
+  display: inline-block;
+  width: 15em;
+  margin: 1em 1em;
+  height: 24.6em;
+  overflow-y: scroll;
+}
+
+ion-card:hover {
+  box-shadow: 0 8px 6px -6px black;
+}

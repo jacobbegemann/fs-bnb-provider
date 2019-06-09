@@ -146,6 +146,11 @@ export class Data {
     });
   }
 
+  deleteRental(id: number) {
+    this.client.delete(`http://localhost:3000/properties/${id}`)
+      .subscribe();
+  }
+
   updateRental(rental: ServerRentalObject): Promise<boolean> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -182,6 +187,21 @@ export class Data {
           resolve(false);
         });
     })
+  }
+
+
+  getBookingRequests(userID: number): Promise<Trip[]> {
+    return new Promise((resolve) => {
+      this.client.get(`http://localhost:3000/trips/byHost/${userID}`)
+      .subscribe((response: Trip[]) => {
+        resolve(response);
+      });
+    });
+  }
+
+  patchTrip(trip: Trip) {
+    this.client.patch(`http://localhost:3000/trips/`, trip)
+      .subscribe();
   }
 
   addFieldsNotRequiredUser(serverResponseObject: ServerUserObject,

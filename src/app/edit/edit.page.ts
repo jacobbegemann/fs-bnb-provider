@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { ServerRentalObject } from '../models/serverRentalObject.model';
 import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +21,8 @@ export class EditPage implements OnInit {
 
   constructor(private navctrl: NavController,
     private dataService: DataService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private alert: AlertController) {
     this.counter++;
   }
 
@@ -67,6 +68,26 @@ export class EditPage implements OnInit {
     if (success) {
       this.publishDone = true;
     }
+  }
+
+  async delete() {
+    const alert = await this.alert.create({header: 'Careful',
+    subHeader: 'You have chosen to delete this listing.',
+    message: 'Are you sure you want to delete this listing?',
+    buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.dataService.getData().deleteRental(this.id);
+            this.navctrl.navigateForward('tabs/tab1');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   navHome() {

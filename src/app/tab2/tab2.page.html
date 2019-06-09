@@ -1,9 +1,41 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Booking Requests
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div class="content-parent">
+    <div class="content-area">
+      <h1>Your Booking Requests</h1>
+      <ion-item-divider></ion-item-divider>
+      <div class="bookings-area" *ngIf="bookings">
+        <ion-list>
+          <ion-item *ngFor="let item of bookings">
+            <div *ngIf="item.status == 'NEW'">
+              <ion-label>Who? {{item.name}} </ion-label>
+              <ion-label>When? {{item.dateFrom}}-{{item.dateTo}}</ion-label>
+              <ion-label *ngIf="item.rental">for your property in {{item.rental.location}}</ion-label>
+              <ion-button (click)="accept(item)">Accept</ion-button>
+              <ion-button (click)="reject(item)">Reject</ion-button>
+            </div>
+            <div *ngIf="item.status == 'REJECTED'">
+              <ion-label>Who? {{item.name}} </ion-label>
+              <ion-label>When? {{item.dateFrom}}-{{item.dateTo}}</ion-label>
+              <ion-label *ngIf="item.rental">for your property in {{item.rental.location}}</ion-label>
+              <ion-label>You rejected this request.</ion-label>
+            </div>
+            <div *ngIf="item.status == 'ACCEPTED'">
+              <ion-label>Who? {{item.name}} </ion-label>
+              <ion-label>When? {{item.dateFrom}}-{{item.dateTo}}</ion-label>
+              <ion-label *ngIf="item.rental">for your property in {{item.rental.location}}</ion-label>
+              <ion-label>You accepted this request.</ion-label>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content>

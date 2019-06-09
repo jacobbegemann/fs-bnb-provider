@@ -2,10 +2,16 @@ import { Rental } from './rental.model';
 
 export class Trip {
 
-  constructor(private dates: string,
-    private rental: Rental) {
+  public name: string;
+  public rental: Rental;
+  public status: string;
+
+  constructor(public dateTo: string,
+    public dateFrom: string,
+    public userId: number,
+    public rentalID: number) {
   }
 
-  getRental() { return this.rental; }
+  getUserId() { return this.userId; }
 
 }
