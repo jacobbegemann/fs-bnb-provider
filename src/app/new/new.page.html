@@ -16,6 +16,7 @@
             <p>Pictures</p>
             <input type="file" (change)="handleFiles()" accept=".jpg, .png" id={{item}}>
             <ion-icon name="trash" slot="end" class="delete" (click)="erase(item)"></ion-icon>
+            <ion-icon name="add" slot="end" class="delete" (click)="addFileInput()"></ion-icon>
           </ion-item>
           <ion-item>
             <ion-input placeholder="Enter a nightly price..." id="prc"></ion-input>

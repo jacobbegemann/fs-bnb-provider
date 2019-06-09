@@ -28,6 +28,15 @@ export class NewPage implements OnInit {
     this.uploadArray = this.uploadArray.filter((value) => {
       return value != index;
     });
+    if (this.uploadArray.length == 0) {
+      this.uploadArray.push(this.counter);
+      this.counter++;
+    }
+  }
+
+  addFileInput() {
+    this.uploadArray.push(this.counter);
+      this.counter++;
   }
 
   ngOnInit() {
